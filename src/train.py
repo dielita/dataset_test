@@ -37,21 +37,17 @@ y_train = pd.read_csv("data/train_target.csv").values.ravel() # ravel для к�
 model = RandomForestClassifier(
     n_estimators=model_params["n_estimators"],
     max_depth=model_params["max_depth"],
-    random_state=model_params["random_state"]
+    random_state=model_params["random_state"],
     class_weight="balanced"
 )
 
 model.fit(X_train, y_train)
 
-X_test.to_csv("data/X_test.csv", index=False)
-y_test.to_csv("data/y_test.csv", index=False)
-
 # Save Model
-model_filename = f"{model_params['type']}--{dataset_name}.pkl"
+model_filename = f"{model_params['type']}_{model_params['n_estimators']}_{model_params['max_depth']}_{model_params['random_state']}--{dataset_name}.pkl"
 save_path = os.path.join("models", model_filename)
 os.makedirs("models", exist_ok=True)
 
 joblib.dump(model, save_path)
 
 print(f"Saved model: {save_path}")
-print(f"Train size: {len(X_train)}, Test size: {len(X_test)}")

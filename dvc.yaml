@@ -10,10 +10,10 @@
 #      - data/titanic.dvc
  stages:
   split:
-    cmd: python split.py
+    cmd: python src/split.py
     deps:
-      - split.py
-      - data/$(data.name).csv  # Укажите реальное имя вашего файла
+      - src/split.py
+      - data/${data.name}.csv  # Укажите реальное имя вашего файла
     params:
       - data
       - model.random_state
@@ -30,7 +30,7 @@
     cmd: python src/train.py
     deps:
       - src/train.py
-      - data/$(data.name).csv
+      - data/${data.name}.csv
       - params.yaml
     outs:
       - models/:
@@ -42,4 +42,5 @@
       - models/
       - params.yaml
     metrics:
-      - metrics
+      - metrics/: 
+          cache: false

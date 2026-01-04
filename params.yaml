@@ -10,7 +10,7 @@ features:
   columns: all
 
 model:
-  type: random_forest
+  type: RFC
   n_estimators: 300
   max_depth: 12
   random_state: 42

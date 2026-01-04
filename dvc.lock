@@ -1,0 +1,83 @@
+schema: '2.0'
+stages:
+  split:
+    cmd: python src/split.py
+    deps:
+    - path: data/Khibiny_Dataset.csv
+      hash: md5
+      md5: dd406c747727be34709939941621d114
+      size: 213701
+    - path: src/split.py
+      hash: md5
+      md5: c1e3c97866ea122416ecb93cd43d7b9e
+      size: 1599
+    params:
+      params.yaml:
+        data:
+          repo: git@github.com:team/data-repo.git
+          path: data/titanic.dvc
+          rev: HEAD
+          name: Khibiny_Dataset
+          target: has_avalanche
+          test_size: 0.2
+        model.random_state: 42
+    outs:
+    - path: data/test_features.csv
+      hash: md5
+      md5: 8ced294251135d73bc664be8b37cc635
+      size: 3342607
+    - path: data/test_target.csv
+      hash: md5
+      md5: 01bcc6b6c9cce3f8b451255c6f85e0a8
+      size: 1008
+    - path: data/train_features.csv
+      hash: md5
+      md5: 29cb75613cf3e9a73480860a93b0095a
+      size: 13243514
+    - path: data/train_target.csv
+      hash: md5
+      md5: acb2934b8d03562486ab277706e409ad
+      size: 3987
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/Khibiny_Dataset.csv
+      hash: md5
+      md5: dd406c747727be34709939941621d114
+      size: 213701
+    - path: params.yaml
+      hash: md5
+      md5: 48a45c7de944bd545243bb0b9a8274a1
+      size: 335
+    - path: src/train.py
+      hash: md5
+      md5: 8b4fb1467bf80ee40790ec6d3a742179
+      size: 1541
+    outs:
+    - path: models/
+      hash: md5
+      md5: a85df2a468de32cfaf2697fb331ad1a4.dir
+      size: 1696873
+      nfiles: 1
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - path: models/
+      hash: md5
+      md5: a85df2a468de32cfaf2697fb331ad1a4.dir
+      size: 1696873
+      nfiles: 1
+    - path: params.yaml
+      hash: md5
+      md5: 48a45c7de944bd545243bb0b9a8274a1
+      size: 335
+    - path: src/evaluate.py
+      hash: md5
+      md5: b4e0960d0a5e1878674f631b51957657
+      size: 2727
+    outs:
+    - path: metrics/
+      hash: md5
+      md5: 50af780aa1c16171445d16c928dfc183.dir
+      size: 507
+      nfiles: 1
