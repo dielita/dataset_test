@@ -1,0 +1,6 @@
+[core]
+    remote = datasets_remote
+['remote "datasets_remote"']
+    url = C:\datasets_remote
+['remote "models_remote"']
+    url = C:\models_remote

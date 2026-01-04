@@ -1,0 +1,17 @@
+data:
+  repo: git@github.com:team/data-repo.git
+  path: data/titanic.dvc
+  rev: HEAD                 # можно менять через dvc exp run
+  name: Khibiny_Dataset
+  target: has_avalanche 
+  test_size: 0.2
+
+features:
+  columns: all
+
+model:
+  type: random_forest
+  n_estimators: 300
+  max_depth: 12
+  random_state: 42
+

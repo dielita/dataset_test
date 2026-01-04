@@ -1,0 +1,45 @@
+  #import_data:
+    #cmd: dvc import \
+         # ${data.repo} \
+ #         ${data.path} \
+#          --rev ${data.rev} \
+ #         -o data/titanic.dvc
+#    deps:
+ #     - params.yaml
+#    outs:
+#      - data/titanic.dvc
+ stages:
+  split:
+    cmd: python split.py
+    deps:
+      - split.py
+      - data/$(data.name).csv  # Укажите реальное имя вашего файла
+    params:
+      - data
+      - model.random_state
+    outs:
+      - data/train_features.csv:
+          remote: datasets_remote
+      - data/train_target.csv:
+          remote: datasets_remote
+      - data/test_features.csv:
+          remote: datasets_remote
+      - data/test_target.csv:
+          remote: datasets_remote
+  train:
+    cmd: python src/train.py
+    deps:
+      - src/train.py
+      - data/$(data.name).csv
+      - params.yaml
+    outs:
+      - models/:
+          remote: models_remote
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+      - src/evaluate.py
+      - models/
+      - params.yaml
+    metrics:
+      - metrics
