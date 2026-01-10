@@ -3,52 +3,52 @@ stages:
   split:
     cmd: python src/split.py
     deps:
-    - path: data/Khibiny_Dataset.csv
+    - path: data/Khibiny_Dataset_Hours.csv
       hash: md5
-      md5: dd406c747727be34709939941621d114
-      size: 213701
+      md5: f08cb1d168b95927273ee8604ddaf48e
+      size: 7775054
     - path: src/split.py
       hash: md5
-      md5: d7e6870670d402267958d3fe91c72e19
-      size: 2504
+      md5: bdd70ab74d1a8813ee44c1f2642c786f
+      size: 4062
     params:
       params.yaml:
         data:
           repo: git@github.com:team/data-repo.git
           path: data/titanic.dvc
           rev: HEAD
-          name: Khibiny_Dataset
+          name: Khibiny_Dataset_Hours
           target: has_avalanche
           test_size: 0.2
         model.random_state: 42
     outs:
     - path: data/test_features.csv
       hash: md5
-      md5: 5d1b4978eb50431059ccb3f33fd7f942
-      size: 38226
+      md5: 0ec94f57a7f2a007cf08acbd31a7fea9
+      size: 1168732
     - path: data/test_target.csv
       hash: md5
-      md5: 01bcc6b6c9cce3f8b451255c6f85e0a8
-      size: 1008
+      md5: aa740bc6e2f3cf207c2197c6c427919b
+      size: 23811
     - path: data/train_features.csv
       hash: md5
-      md5: 388f296a65bb4cd46968f4035a0423c1
-      size: 150815
+      md5: bcb71bd4a6cf24db4d1d6c31809cb6f8
+      size: 4672970
     - path: data/train_target.csv
       hash: md5
-      md5: acb2934b8d03562486ab277706e409ad
-      size: 3987
+      md5: 4db7c6f87db7ff553e595f680219ccf4
+      size: 95190
   train:
     cmd: python src/train.py
     deps:
     - path: data/train_features.csv
       hash: md5
-      md5: 388f296a65bb4cd46968f4035a0423c1
-      size: 150815
+      md5: bcb71bd4a6cf24db4d1d6c31809cb6f8
+      size: 4672970
     - path: params.yaml
       hash: md5
-      md5: 48a45c7de944bd545243bb0b9a8274a1
-      size: 335
+      md5: 5efbe2f918d7025a2fb8695a0abf6bbb
+      size: 341
     - path: src/train.py
       hash: md5
       md5: 8b4fb1467bf80ee40790ec6d3a742179
@@ -56,21 +56,21 @@ stages:
     outs:
     - path: models/
       hash: md5
-      md5: 1ebbc2298472c33ff23a39e293dd4a82.dir
-      size: 4343001
+      md5: f812fed299f4156798544f7b82025512.dir
+      size: 26617593
       nfiles: 1
   evaluate:
     cmd: python src/evaluate.py
     deps:
     - path: models/
       hash: md5
-      md5: 1ebbc2298472c33ff23a39e293dd4a82.dir
-      size: 4343001
+      md5: f812fed299f4156798544f7b82025512.dir
+      size: 26617593
       nfiles: 1
     - path: params.yaml
       hash: md5
-      md5: 48a45c7de944bd545243bb0b9a8274a1
-      size: 335
+      md5: 5efbe2f918d7025a2fb8695a0abf6bbb
+      size: 341
     - path: src/evaluate.py
       hash: md5
       md5: b4e0960d0a5e1878674f631b51957657
@@ -78,6 +78,6 @@ stages:
     outs:
     - path: metrics/
       hash: md5
-      md5: 92d7478b1e47c3178eb6662133352ad9.dir
-      size: 491
+      md5: 630d620a67865321461529e15af8fd3d.dir
+      size: 513
       nfiles: 1

@@ -1,10 +1,10 @@
 {
     "sector_id": "unknown",
-    "model_name": "RFC_300_12_42--Khibiny_Dataset.pkl",
-    "model_version": "v1.0",
+    "model_name": "RFC_300_12_42--Khibiny_Dataset_Hours.pkl",
+    "model_version": "300_12_42",
     "model_type": "RFC",
-    "gitlab_commit_hash": "https://github.com/dielita/dataset_test/commit/474bccca16015fc13fc106407171d3b23aa48e18",
-    "gitlab_download_url": "https://github.com/dielita/dataset_test/releases/tag/0.0",
+    "gitlab_commit_hash": "https://github.com/dielita/dataset_test/commit/00389e30bd04b00087e4ceac7a28c899bf0f5824",
+    "gitlab_download_url": "https://github.com/dielita/dataset_test/releases/tag/new",
     "hyperparameters": {
         "bootstrap": true,
         "ccp_alpha": 0.0,
@@ -28,44 +28,41 @@
     },
     "features": {
         "features": [
-            "Площадь",
-            "temperature_2m_mean",
-            "precipitation_sum",
-            "rain_sum",
-            "snowfall_sum",
-            "precipitation_hours",
+            "relative_humidity_2m",
+            "apparent_temperature",
+            "precipitation",
+            "rain",
+            "snowfall",
+            "snow_depth",
             "weather_code",
-            "sunrise",
-            "sunset",
-            "daylight_duration",
+            "surface_pressure",
+            "cloud_cover",
+            "cloud_cover_low",
+            "cloud_cover_mid",
+            "cloud_cover_high",
+            "wind_speed_10m",
+            "wind_speed_100m",
+            "wind_direction_10m",
+            "wind_direction_100m",
+            "shortwave_radiation",
+            "direct_radiation",
+            "diffuse_radiation",
+            "vapour_pressure_deficit",
             "et0_fao_evapotranspiration",
-            "wind_speed_10m_max",
-            "wind_direction_10m_dominant",
-            "Условия схода_АВ",
-            "Условия схода_Лыжник",
-            "Условия схода_Сноубордист",
-            "Условия схода_Турист",
-            "Экспозиция_ЮЗ",
-            "Экспозиция_З",
-            "Экспозиция_ЮЮЗ",
-            "Экспозиция_ЮЮВ",
-            "Экспозиция_ЮВ",
-            "Экспозиция_СЗ",
-            "Экспозиция_СВ",
-            "Экспозиция_ВЮВ",
-            "Экспозиция_В",
-            "Экспозиция_Ю",
-            "month"
+            "month",
+            "hour"
         ]
     },
     "training_data_info": {
-        "dataset_size": "unknown"
+        "dataset_size": 39657,
+        "train_size": 31725,
+        "test_size": 7932
     },
     "metrics": {
-        "accuracy": 0.9425981873111783,
-        "precision": 0.8441558441558441,
-        "recall": 0.9027777777777778,
-        "f1_score": 0.87248322147651,
-        "auc": 0.9790862290862291
+        "accuracy": 0.9244831064044378,
+        "precision": 0.7503361721201255,
+        "recall": 0.9755244755244755,
+        "f1_score": 0.8482391689891057,
+        "auc": 0.9892359892359893
     }
 }

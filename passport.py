@@ -48,7 +48,10 @@ def main():
     dataset_name = params["data"]["name"]
     model_params = params["model"]
     model_type = params["model"]["type"]
-    
+    model_ver = f"{model_params['n_estimators']}_{model_params['max_depth']}_{model_params['random_state']}"
+    df = pd.read_csv(f"data/{dataset_name}.csv")
+    X_train = pd.read_csv("data/train_features.csv")
+    X_test = pd.read_csv("data/test_features.csv")
     # Пути
     model_filename = f"{model_type}_{model_params['n_estimators']}_{model_params['max_depth']}_{model_params['random_state']}--{dataset_name}.pkl"
     model_path = os.path.join("models", model_filename)
@@ -70,7 +73,7 @@ def main():
     passport = {
         "sector_id": params["data"].get("sector_id", "unknown"),
         "model_name": model_filename,
-        "model_version": "v1.0",
+        "model_version": model_ver,
         "model_type": model_type,
         "gitlab_commit_hash": commit_url,
         "gitlab_download_url": tag_url,
@@ -79,7 +82,9 @@ def main():
             "features": X_sample.columns.tolist()
         },
         "training_data_info": {
-            "dataset_size": params["data"].get("total_rows_estimated", "unknown")
+            "dataset_size": int(len(df)), # Весь файл
+            "train_size": int(X_train.shape[0]), # 80% (например)
+            "test_size": int(X_test.shape[0])   # 20%
         },
         "metrics": {
             "accuracy": test_metrics.get("accuracy"),

@@ -2,7 +2,7 @@ data:
   repo: git@github.com:team/data-repo.git
   path: data/titanic.dvc
   rev: HEAD                 # можно менять через dvc exp run
-  name: Khibiny_Dataset
+  name: Khibiny_Dataset_Hours
   target: has_avalanche 
   test_size: 0.2
 
