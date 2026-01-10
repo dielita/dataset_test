@@ -30,7 +30,7 @@
     cmd: python src/train.py
     deps:
       - src/train.py
-      - data/${data.name}.csv
+      - data/train_features.csv
       - params.yaml
     outs:
       - models/:

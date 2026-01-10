@@ -16,17 +16,28 @@ random_state = params["model"]["random_state"]
 # ---------- Загрузка данных ----------
 df = pd.read_csv(f"data/{dataset_name}.csv")
 
-# Выделение признаков и таргета
-y = df[target_col]
-if features_cfg == "all":
-    X = df.drop(columns=[target_col])
-else:
-    X = df[features_cfg]
+# ---------- ПРЕДОБРАБОТКА ----------
 
-# One-Hot Encoding (делаем его ДО сплита, чтобы колонки в train/test совпали)
+# 1. Извлекаем месяц из погодной даты (для учета сезонности)
+df['weather_date'] = pd.to_datetime(df['weather_date'])
+df['month'] = df['weather_date'].dt.month
+
+# 2. Удаляем "читерские" колонки и неинформативные тексты
+# Удаляем: weather_date (уже взяли месяц), Дата схода, Время (утечка), Лавинный очаг (слишком много категорий)
+cols_to_drop = [target_col, 'weather_date', 'Дата схода', 'Время', 'Лавинный очаг (место схода)']
+X = df.drop(columns=[c for c in cols_to_drop if c in df.columns])
+
+# 3. Заполняем пропуски в числовых колонках (например, Площадь)
+# Модели не умеют работать с NaN
+X['Площадь'] = X['Площадь'].fillna(0)
+
+# 4. Кодируем только реальные категории (Экспозиция, Условия схода)
+# get_dummies теперь не создаст тысячи колонок с датами!
 X = pd.get_dummies(X)
 
-# ---------- Тот самый Train/Test Split ----------
+y = df[target_col]
+
+# ---------- Train/Test Split ----------
 X_train, X_test, y_train, y_test = train_test_split(
     X, y,
     test_size=test_size,

@@ -9,8 +9,8 @@ stages:
       size: 213701
     - path: src/split.py
       hash: md5
-      md5: c1e3c97866ea122416ecb93cd43d7b9e
-      size: 1599
+      md5: d7e6870670d402267958d3fe91c72e19
+      size: 2504
     params:
       params.yaml:
         data:
@@ -24,16 +24,16 @@ stages:
     outs:
     - path: data/test_features.csv
       hash: md5
-      md5: 8ced294251135d73bc664be8b37cc635
-      size: 3342607
+      md5: 5d1b4978eb50431059ccb3f33fd7f942
+      size: 38226
     - path: data/test_target.csv
       hash: md5
       md5: 01bcc6b6c9cce3f8b451255c6f85e0a8
       size: 1008
     - path: data/train_features.csv
       hash: md5
-      md5: 29cb75613cf3e9a73480860a93b0095a
-      size: 13243514
+      md5: 388f296a65bb4cd46968f4035a0423c1
+      size: 150815
     - path: data/train_target.csv
       hash: md5
       md5: acb2934b8d03562486ab277706e409ad
@@ -41,10 +41,10 @@ stages:
   train:
     cmd: python src/train.py
     deps:
-    - path: data/Khibiny_Dataset.csv
+    - path: data/train_features.csv
       hash: md5
-      md5: dd406c747727be34709939941621d114
-      size: 213701
+      md5: 388f296a65bb4cd46968f4035a0423c1
+      size: 150815
     - path: params.yaml
       hash: md5
       md5: 48a45c7de944bd545243bb0b9a8274a1
@@ -56,16 +56,16 @@ stages:
     outs:
     - path: models/
       hash: md5
-      md5: a85df2a468de32cfaf2697fb331ad1a4.dir
-      size: 1696873
+      md5: 1ebbc2298472c33ff23a39e293dd4a82.dir
+      size: 4343001
       nfiles: 1
   evaluate:
     cmd: python src/evaluate.py
     deps:
     - path: models/
       hash: md5
-      md5: a85df2a468de32cfaf2697fb331ad1a4.dir
-      size: 1696873
+      md5: 1ebbc2298472c33ff23a39e293dd4a82.dir
+      size: 4343001
       nfiles: 1
     - path: params.yaml
       hash: md5
@@ -78,6 +78,6 @@ stages:
     outs:
     - path: metrics/
       hash: md5
-      md5: 50af780aa1c16171445d16c928dfc183.dir
-      size: 507
+      md5: 92d7478b1e47c3178eb6662133352ad9.dir
+      size: 491
       nfiles: 1
